@@ -1,0 +1,21 @@
+#!/usr/bin/with-contenv sh
+
+KEY="/etc/molly-brown/keys/$HOST_NAME-key.pem"
+CERT="/etc/molly-brown/keys/$HOST_NAME-cert.pem"
+
+if [ ! -f "$KEY" ] || [ ! -f "$CERT" ]; then
+    openssl req -x509 -newkey rsa:4096 -keyout "$KEY" -out "$CERT" -days 3650 -nodes -subj "/CN=$HOST_NAME"
+fi
+
+chown molly-brown:molly-brown "$KEY"
+chown molly-brown:molly-brown "$CERT"
+
+date_valid="$(openssl x509 -in "$CERT" -enddate -noout | sed "s/.*=\(.*\)/\1/")"
+seconds_valid="$(date --date "$date_valid" +"%s")"
+now="$(date "+%s")"
+days="$(echo "($seconds_valid - $now)/(60 * 60 * 24)" | bc)"
+
+if [ "$days" -lt 7 ]; then
+    echo "only $days to go, generating new certificate..."
+    openssl req -x509 -key "$KEY" -out "$CERT" -days 3650 -nodes -subj "/CN=$HOST_NAME"
+fi

@@ -1,0 +1,3 @@
+#!/usr/bin/with-contenv sh
+
+exec s6-setuidgid molly-brown molly-brown -c /etc/molly-brown/molly.conf

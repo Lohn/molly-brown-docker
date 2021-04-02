@@ -1,0 +1,20 @@
+## Basic settings
+#
+Port = 1965
+Hostname = "{{ getenv "HOST_NAME" }}"
+CertPath = "/etc/molly-brown/keys/{{ getenv "HOST_NAME" }}-cert.pem"
+KeyPath = "/etc/molly-brown/keys/{{ getenv "HOST_NAME" }}-key.pem"
+DocBase = "/var/gemini/"
+HomeDocBase = "users"
+GeminiExt = "gmi"
+DefaultLang = "{{ getenv "DEFAULT_LANG" "en" }}"
+AccessLog = "/home/molly-brown/access.log"
+ErrorLog = "/home/molly-brown/access.log"
+ReadMollyFiles = true
+
+#
+## MIME type overrides
+#
+[MimeOverrides]
+"atom.xml$" = "application/atom+xml"
+"rss.xml$" = "application/rss+xml"
