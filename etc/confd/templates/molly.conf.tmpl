@@ -8,8 +8,8 @@ DocBase = "/var/gemini/"
 HomeDocBase = "users"
 GeminiExt = "gmi"
 DefaultLang = "{{ getenv "DEFAULT_LANG" "en" }}"
-AccessLog = "/home/molly-brown/access.log"
-ErrorLog = "/home/molly-brown/access.log"
+AccessLog = "-"
+ErrorLog = "-"
 ReadMollyFiles = true
 
 #
@@ -18,3 +18,4 @@ ReadMollyFiles = true
 [MimeOverrides]
 "atom.xml$" = "application/atom+xml"
 "rss.xml$" = "application/rss+xml"
+"feed.rss$" = "application/rss+xml"

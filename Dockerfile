@@ -1,5 +1,4 @@
 FROM golang:1.16.3-alpine3.13
-CMD ["/bin/sh"]
 ENV LANG=en_US.UTF-8
 RUN apk --no-cache add syslog-ng openssl coreutils wget
 RUN apk --no-cache upgrade
@@ -17,10 +16,8 @@ RUN addgroup molly-brown tty
 RUN mkdir -p /var/gemini
 RUN chown molly-brown:molly-brown /var/gemini
 RUN mkdir -p /etc/molly-brown/keys/
-RUN ln -sf /dev/stdout /home/molly-brown/access.log
 RUN go get tildegit.org/solderpunk/molly-brown && \
     cp /go/bin/molly-brown /bin/molly-brown && \
     rm -rf /go
 WORKDIR /var/gemini
-VOLUME [/etc/molly-brown/keys /var/gemini/]
 EXPOSE 1965/tcp
